@@ -2,39 +2,35 @@ import React from "react";
 import {
   craeteAuthUserWithEmailAndPassword,
   craeteUserDocumnetFromAuth,
+  signinAuthUserWithEmailAndPassword,
+  signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
-import "./sign-up-form.style.scss";
+import "./sign-in-form.style.scss";
 import Button from "../button/button.component";
-function SignUpForm() {
+function SignInForm() {
   const deafultFromFields = {
-    displayName: "",
     email: "",
     password: "",
-    confirmPassword: "",
   };
 
   const [formFields, setFormFields] = React.useState(deafultFromFields);
-  const { displayName, email, password, confirmPassword } = formFields;
+  const { email, password } = formFields;
   //   console.log(formFields);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+
     try {
-      const { user } = await craeteAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      //   console.log(res);
-      await craeteUserDocumnetFromAuth(user, { displayName });
+      const res = await signinAuthUserWithEmailAndPassword(email, password);
+      console.log(res);
+
       resetFormFields();
     } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        alert("can not use email(used already)");
+      if (error.code === "auth/wrong-passowrd") {
+        alert("wrong Password");
+      } else if (error.code === "auth/user-not-found") {
+        alert("no user found");
       } else {
         console.log(error);
       }
@@ -45,25 +41,22 @@ function SignUpForm() {
     setFormFields(deafultFromFields);
   };
 
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup();
+    // console.log(res);
+    await craeteUserDocumnetFromAuth(user);
+    // console.log(userDocRef);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
   return (
     <div className="sign-up-container">
-      <h2>Don't have an account?</h2>
-      <span>Sign up with your email and password</span>
+      <h2>Already have an account?</h2>
+      <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
-        <FormInput
-          label="Display Name"
-          type="text"
-          name="displayName"
-          id=""
-          required
-          value={displayName}
-          onChange={handleChange}
-        />
-
         <FormInput
           label="Email"
           type="email"
@@ -83,21 +76,15 @@ function SignUpForm() {
           required
           onChange={handleChange}
         />
-
-        <FormInput
-          label="Confirm Password"
-          type="password"
-          name="confirmPassword"
-          id=""
-          value={confirmPassword}
-          required
-          onChange={handleChange}
-        />
-
-        <Button type="submit">SignUp</Button>
+        <div className="buttons-conatiner">
+          <Button type="submit">SignIn</Button>
+          <Button buttonType="google" type="button" onClick={signInWithGoogle}>
+            Gogle Sign In
+          </Button>
+        </div>
       </form>
     </div>
   );
 }
 
-export default SignUpForm;
+export default SignInForm;
