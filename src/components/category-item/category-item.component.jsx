@@ -11,7 +11,7 @@ function CategoryItem({ category }) {
       />
       {/* <img/> */}
       <div className="category-body-container">
-        <h1>{title}</h1>
+        <h2>{title}</h2>
         <p>Shop now</p>
       </div>
     </div>

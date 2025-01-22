@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
-  craeteAuthUserWithEmailAndPassword,
   craeteUserDocumnetFromAuth,
   signinAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
@@ -8,22 +7,27 @@ import {
 import FormInput from "../form-input/form-input.component";
 import "./sign-in-form.style.scss";
 import Button from "../button/button.component";
+import { UserContext } from "../../contexts/user.context";
+
 function SignInForm() {
   const deafultFromFields = {
     email: "",
     password: "",
   };
 
-  const [formFields, setFormFields] = React.useState(deafultFromFields);
+  const [formFields, setFormFields] = useState(deafultFromFields);
   const { email, password } = formFields;
-  //   console.log(formFields);
+  const { setCurrentUser } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const res = await signinAuthUserWithEmailAndPassword(email, password);
-      console.log(res);
+      const { user } = await signinAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      setCurrentUser(user);
 
       resetFormFields();
     } catch (error) {
@@ -43,9 +47,8 @@ function SignInForm() {
 
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
-    // console.log(res);
+    // setCurrentUser(user);
     await craeteUserDocumnetFromAuth(user);
-    // console.log(userDocRef);
   };
 
   const handleChange = (e) => {
