@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   craeteAuthUserWithEmailAndPassword,
   craeteUserDocumnetFromAuth,
@@ -6,7 +6,7 @@ import {
 import FormInput from "../form-input/form-input.component";
 import "./sign-up-form.style.scss";
 import Button from "../button/button.component";
-import { UserContext } from "../../contexts/user.context";
+// import { UserContext } from "../../contexts/user.context";
 function SignUpForm() {
   const deafultFromFields = {
     displayName: "",
@@ -17,7 +17,7 @@ function SignUpForm() {
 
   const [formFields, setFormFields] = useState(deafultFromFields);
   const { displayName, email, password, confirmPassword } = formFields;
-  const { setCurrentUser } = useContext(UserContext);
+  // const { setCurrentUser } = useContext(UserContext);
   //   console.log(formFields);
 
   const handleSubmit = async (event) => {
@@ -31,7 +31,7 @@ function SignUpForm() {
         email,
         password
       );
-      setCurrentUser(user);
+      // setCurrentUser(user);
       //   console.log(res);
       await craeteUserDocumnetFromAuth(user, { displayName });
       resetFormFields();
