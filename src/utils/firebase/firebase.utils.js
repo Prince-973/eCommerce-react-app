@@ -10,7 +10,14 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyADiFja_ICamVCBdB3G1v5EOTSgMPdGO3k",
   authDomain: "crwn-cloathing-db-cf4e7.firebaseapp.com",
@@ -34,6 +41,19 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, provider);
 
 export const db = getFirestore();
+export const addCollectionAndDocumnets = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+  objectsToAdd.forEach((obejct) => {
+    const docRef = doc(collectionRef, obejct.title.toLowerCase());
+    batch.set(docRef, obejct);
+  });
+  await batch.commit();
+  console.log("done");
+};
 
 export const craeteUserDocumnetFromAuth = async (
   userAuth,
