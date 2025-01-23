@@ -4,10 +4,10 @@ import { CartContext } from "../../contexts/cart.context";
 
 import CheckOutItem from "../../components/checkout-item/checkout-item.component";
 function CheckOut() {
-  const { cartItems } = useContext(CartContext);
-  const totalPrice = cartItems.reduce((total, item) => {
-    return total + item.price * item.quantity;
-  }, 0);
+  const { cartItems, cartTotal } = useContext(CartContext);
+  // const totalPrice = cartItems.reduce((total, item) => {
+  //   return total + item.price * item.quantity;
+  // }, 0);
   return (
     <div className="checkout-container">
       <div className="checkout-header">
@@ -31,7 +31,7 @@ function CheckOut() {
       {cartItems.map((cartItem) => {
         return <CheckOutItem key={cartItem.id} cartItem={cartItem} />;
       })}
-      <span className="total">Total: {totalPrice}</span>
+      <span className="total">Total: {cartTotal}</span>
     </div>
   );
 }
