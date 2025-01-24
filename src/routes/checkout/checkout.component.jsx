@@ -3,8 +3,15 @@ import "./checkout.style.scss";
 import { CartContext } from "../../contexts/cart.context";
 
 import CheckOutItem from "../../components/checkout-item/checkout-item.component";
+import { useSelector } from "react-redux";
+import {
+  selectCartItems,
+  selectCartTotal,
+} from "../../store/cart/cart.selector";
 function CheckOut() {
-  const { cartItems, cartTotal } = useContext(CartContext);
+  // const { cartItems, cartTotal } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
   // const totalPrice = cartItems.reduce((total, item) => {
   //   return total + item.price * item.quantity;
   // }, 0);
