@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./checkout.style.scss";
-import { CartContext } from "../../contexts/cart.context";
 
 import CheckOutItem from "../../components/checkout-item/checkout-item.component";
 import { useSelector } from "react-redux";
