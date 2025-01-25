@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 import {
   fetchCategoriesAsync,
+  fetchCategoriesStart,
   setCategories,
 } from "../../store/categories/category.action";
 import { useDispatch } from "react-redux";
@@ -14,7 +15,7 @@ function Shop() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategoriesAsync());
+    dispatch(fetchCategoriesStart());
   }, [dispatch]);
   return (
     <Routes>

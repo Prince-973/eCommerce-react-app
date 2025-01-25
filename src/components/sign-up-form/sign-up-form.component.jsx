@@ -6,6 +6,8 @@ import {
 import FormInput from "../form-input/form-input.component";
 import "./sign-up-form.style.scss";
 import Button from "../button/button.component";
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../store/user/user.action";
 // import { UserContext } from "../../contexts/user.context";
 function SignUpForm() {
   const deafultFromFields = {
@@ -14,6 +16,7 @@ function SignUpForm() {
     password: "",
     confirmPassword: "",
   };
+  const dispatch = useDispatch();
 
   const [formFields, setFormFields] = useState(deafultFromFields);
   const { displayName, email, password, confirmPassword } = formFields;
@@ -27,13 +30,7 @@ function SignUpForm() {
       return;
     }
     try {
-      const { user } = await craeteAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      // setCurrentUser(user);
-      //   console.log(res);
-      await craeteUserDocumnetFromAuth(user, { displayName });
+      dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {

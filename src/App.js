@@ -9,22 +9,25 @@ import CheckOut from "./routes/checkout/checkout.component";
 import { useEffect } from "react";
 import {
   craeteUserDocumnetFromAuth,
+  getCurrentUser,
   onAuthStateChangedListener,
 } from "./utils/firebase/firebase.utils";
-import { setCurrentUser } from "./store/user/user.action";
+import { checkUserSession, setCurrentUser } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        craeteUserDocumnetFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-    return unsubscribe;
+    // const unsubscribe = onAuthStateChangedListener((user) => {
+    //   if (user) {
+    //     craeteUserDocumnetFromAuth(user);
+    //   }
+    //   dispatch(setCurrentUser(user));
+    // });
+    // return unsubscribe;
+    // getCurrentUser().then((user) => console.log(user));
+    dispatch(checkUserSession());
   }, [dispatch]);
   return (
     <Routes>

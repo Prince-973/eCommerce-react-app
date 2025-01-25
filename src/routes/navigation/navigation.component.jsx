@@ -13,13 +13,17 @@ import { SignOutUser } from "../../utils/firebase/firebase.utils";
 import CardIcon from "../../components/card-icon/card-icon.component.jsx";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component.jsx";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector.js";
 import { selectIsCartOpen } from "../../store/cart/cart.selector.js";
+import { signOutStart } from "../../store/user/user.action.js";
 // import { SignOutUser } from "../../utils/firebase/firebase.utils";
 const Navigation = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
+  const SignOutUser = () => dispatch(signOutStart());
+  // console.log(currentUser);
 
   // const { currentUser } = useContext(UserContext);
   // const { isCartOpen } = useContext(CartContext);

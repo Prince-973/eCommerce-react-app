@@ -4,7 +4,9 @@ import { rootReducer } from "./root-reducer";
 import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage";
-import { thunk } from "redux-thunk";
+import createSagaMiddleware from "redux-saga";
+import { rootSaga } from "./root-saga";
+// import { thunk } from "redux-thunk";
 
 const persistConfig = {
   key: "root",
@@ -22,9 +24,10 @@ const composeEnhancer =
     window &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
+const sagaMiddleware = createSagaMiddleware();
 
 const composedEnhancers = composeEnhancer(
-  applyMiddleware(...middlewares, thunk)
+  applyMiddleware(...middlewares, sagaMiddleware)
 );
 
 export const store = createStore(
@@ -32,5 +35,7 @@ export const store = createStore(
   undefined,
   composedEnhancers
 );
+
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
