@@ -49,7 +49,7 @@ const Category = () => {
   });
 
   // addCategory({ variables: { category: category } });
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     if (data) {
       const {

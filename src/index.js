@@ -7,8 +7,7 @@ import { UserProvider } from "./contexts/user.context";
 import { CategoriesProvider } from "./contexts/categories.context";
 import { CartProvider } from "./contexts/cart.context";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-
-import "./index.scss";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration.ts";
 
 const client = new ApolloClient({
   uri: "https://crwn-clothing.com/",
@@ -33,3 +32,5 @@ render(
   </React.StrictMode>,
   rootElement
 );
+
+serviceWorkerRegistration.register();
