@@ -23,7 +23,8 @@
     "reselect": "^5.1.1",
     "sass": "^1.83.4",
     "stripe": "^17.5.0",
-    "styled-components": "^6.1.14"
+    "styled-components": "^6.1.14",
+    "typed-redux-saga": "^1.5.0"
   },
   "scripts": {
     "start": "react-scripts start",

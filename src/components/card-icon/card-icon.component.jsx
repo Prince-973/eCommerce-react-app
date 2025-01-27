@@ -6,7 +6,7 @@ import {
   selectCartCount,
   selectIsCartOpen,
 } from "../../store/cart/cart.selector";
-import { setISCartOpen } from "../../store/cart/cart.action";
+import { setIsCartOpen } from "../../store/cart/cart.action";
 // import { CartContext } from "../../contexts/cart.context";
 function CardIcon() {
   // const { isCartOpen, setIsCartOpen, cartCount } = useContext(CartContext);\
@@ -15,7 +15,7 @@ function CardIcon() {
   const cartCount = useSelector(selectCartCount);
   // const setIsCartOpen = useSelector(selectIsCartOpen);
 
-  const toogleIsCartOpen = () => dispatch(setISCartOpen(!isCartOpen));
+  const toogleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen));
   return (
     <div className="cart-icon-container" onClick={toogleIsCartOpen}>
       <ShoppingIcon className="shopping-icon" />
