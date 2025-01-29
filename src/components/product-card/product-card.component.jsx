@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
   const { name, price, imageUrl } = product;
   const dispatch = useDispatch();
 
-  console.log(product);
+  // console.log(product);
 
   const addProductToCart = () => dispatch(addItemToCart(product));
 

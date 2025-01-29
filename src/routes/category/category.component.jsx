@@ -10,7 +10,6 @@ const Category = () => {
   const { category } = useParams();
   const categoriesMap = useSelector((state) => state.categories.categories);
   const [products, setProducts] = useState([]);
-  console.log(products);
 
   useEffect(() => {
     const matchedCategory = categoriesMap.find(
