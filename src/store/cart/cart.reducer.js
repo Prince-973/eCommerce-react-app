@@ -1,10 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const CART_INITIAL_STATE = {
-  isCartOpen: false,
-  cartItems: [],
-};
-
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === productToAdd.id
@@ -42,6 +37,11 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
 
 const clearCartItem = (cartItems, cartItemToClear) =>
   cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+
+const CART_INITIAL_STATE = {
+  isCartOpen: false,
+  cartItems: [],
+};
 
 export const cartSlice = createSlice({
   name: "cart",
