@@ -1,22 +1,27 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
+import { combineReducers } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage"; // Correct import for localStorage
+import { persistReducer, persistStore } from "redux-persist"; // Correct imports
 import { rootReducer } from "./root-reducer";
-import storage from "redux-persist/lib/storage";
-import persistReducer from "redux-persist/es/persistReducer";
-import persistStore from "redux-persist/es/persistStore";
-const middleWares = [];
 
+// Persist Config
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["cart"], // Only persist the "cart" slice
+};
+
+// Persisted Reducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// Middleware
+const middleWares = [];
 if (process.env.NODE_ENV === "development") {
   middleWares.push(logger);
 }
 
-const persistConfig = {
-  key: "root",
-  storage,
-  // whitelist: ["user"], // Ensure "user" matches the key in your reducer
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// Store
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
@@ -24,4 +29,6 @@ export const store = configureStore({
       serializableCheck: false,
     }).concat(middleWares),
 });
+
+// Persistor
 export const persistor = persistStore(store);
