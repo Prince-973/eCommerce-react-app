@@ -1,12 +1,12 @@
-import Home from "./routes/home/home.component";
+// import Home from "./routes/home/home.component";
 import { Route, Routes } from "react-router-dom";
-import Navigation from "./routes/navigation/navigation.component";
+// import Navigation from "./routes/navigation/navigation.component";
 
-import Shop from "./routes/shop/shop.component";
-import Authentication from "./routes/authentication/authentication.component";
-import CheckOut from "./routes/checkout/checkout.component";
+// // import Shop from "./routes/shop/shop.component";
+// import Authentication from "./routes/authentication/authentication.component";
+// import CheckOut from "./routes/checkout/checkout.component";
 
-import { useEffect } from "react";
+import { useEffect ,lazy,Suspense} from "react";
 import {
   craeteUserDocumnetFromAuth,
   getCurrentUser,
@@ -14,6 +14,13 @@ import {
 } from "./utils/firebase/firebase.utils";
 import { checkUserSession, setCurrentUser } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
+
+const Shop =   lazy(() => import('./routes/shop/shop.component'))
+const Navigation = lazy(()=>import("./routes/navigation/navigation.component"));
+const Authentication = lazy(() => import("./routes/authentication/authentication.component"));
+const CheckOut = lazy(() => import("./routes/checkout/checkout.component"));
+const Home = lazy(() => import("./routes/home/home.component"));
+
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +37,8 @@ function App() {
     dispatch(checkUserSession());
   }, [dispatch]);
   return (
+    <Suspense fallback={null}>
+
     <Routes>
       <Route path="/" element={<Navigation />}>
         <Route index element={<Home />} />
@@ -38,6 +47,7 @@ function App() {
         <Route path="/checkout" element={<CheckOut />} />
       </Route>
     </Routes>
+    </Suspense>
   );
 }
 

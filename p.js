@@ -88,7 +88,7 @@ for (let index = 0; index < arr1.length; index++) {
     first++;
   }
 }
-console.log(arr1);
+// console.log(arr1);
 
 const data = "1:25 PM";
 
@@ -107,4 +107,11 @@ if (amPm === "AM" && hours === "12") {
 if (amPm === "PM" && hours === "12") {
   newhours = 12;
 }
-console.log(newhours, minutes);
+// console.log(newhours, minutes);
+
+// const date = new Date();
+// const weekdayString = date.toLocaleString('default', { weekday: 'long' });
+// const index =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"].indexOf(weekdayString)
+// console.log(index);
+
+const str1 = "three hundred"; 
