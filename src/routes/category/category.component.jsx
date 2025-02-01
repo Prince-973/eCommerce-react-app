@@ -17,8 +17,6 @@ function Category() {
   const [products, setProducts] = useState(categoriesMap[category]);
 
   useEffect(() => {
-    // console.log("effect fire");
-
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
   return (

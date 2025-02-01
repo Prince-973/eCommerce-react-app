@@ -17,7 +17,6 @@ function DirectoryItem({ category }) {
         className="background-image"
         style={{ backgroundImage: `url(${imageUrl})` }}
       />
-      {/* <img/> */}
       <div className="body">
         <h2>{title}</h2>
         <p>Shop now</p>
